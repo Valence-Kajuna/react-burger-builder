@@ -83,10 +83,12 @@ class ContactData extends Component{
                 elementConfig:{
                     options:[{value: 'fastest', displayValue: 'Fastest '},{value:'cheapest', displayValue: 'Cheapest'}]
                 },
-                value: ''
+                value: '',
+                valid: true
             }
             
         },
+        formIsValid: false,
         loading: false
     }
 
@@ -138,11 +140,16 @@ class ContactData extends Component{
             ...updatedOrderForm[inputIdentifier]
         }
 
+       
         updatedFormElement.value = event.target.value;
         updatedFormElement.valid = this.checkValidity(updatedFormElement.value,updatedFormElement.validation);
         updatedFormElement.touched = true;
         updatedOrderForm[inputIdentifier] = updatedFormElement;
-        this.setState({orderForm: updatedOrderForm});
+        let formIsValid = true;
+        for(inputIdentifier in updatedOrderForm){
+            formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
+        }
+        this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
         console.log(updatedFormElement);
     }
     
@@ -161,7 +168,7 @@ class ContactData extends Component{
         let form = (<form>
             {formElementArray.map(formElement => <Input touched = {formElement.config.touched} shouldValidate={formElement.config.validation} invalid={!formElement.config.valid} changed= {(event)=>this.inputChangedHandler(event,formElement.id)} key={formElement.id} elementtype={formElement.config.elementtype} elementConfig={formElement.config.elementConfig} value={formElement.config.value}/>)}
             
-            <Button btnType="Success" clicked={this.OrderHandler}>ORDER</Button>
+            <Button btnType="Success" dis={!this.state.formIsValid} clicked={this.OrderHandler}>ORDER</Button>
             </form>);
             if (this.state.loading){
                 form = <Spinner />
