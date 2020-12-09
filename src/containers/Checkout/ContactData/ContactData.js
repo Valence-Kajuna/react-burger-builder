@@ -20,7 +20,8 @@ class ContactData extends Component{
                 validation:{
                     required: true
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
 
             street: {
@@ -33,7 +34,8 @@ class ContactData extends Component{
                 validation:{
                     required: true
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             zipCode: {
                 elementType: 'input',
@@ -47,7 +49,8 @@ class ContactData extends Component{
                     minLength: 5,
                     maxLength: 5
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             country: {
                 elementtype: 'input',
@@ -59,7 +62,8 @@ class ContactData extends Component{
                 validation:{
                     required: true
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             email: {
                 elementtype: 'input',
@@ -71,7 +75,8 @@ class ContactData extends Component{
                 validation:{
                     required: true
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             deliveryMethod: {
                 elementtype: 'select',
@@ -135,6 +140,7 @@ class ContactData extends Component{
 
         updatedFormElement.value = event.target.value;
         updatedFormElement.valid = this.checkValidity(updatedFormElement.value,updatedFormElement.validation);
+        updatedFormElement.touched = true;
         updatedOrderForm[inputIdentifier] = updatedFormElement;
         this.setState({orderForm: updatedOrderForm});
         console.log(updatedFormElement);
@@ -153,7 +159,7 @@ class ContactData extends Component{
         // console.log(formElementArray);
 
         let form = (<form>
-            {formElementArray.map(formElement => <Input shouldValidate={formElement.config.validation} invalid={!formElement.config.valid} changed= {(event)=>this.inputChangedHandler(event,formElement.id)} key={formElement.id} elementtype={formElement.config.elementtype} elementConfig={formElement.config.elementConfig} value={formElement.config.value}/>)}
+            {formElementArray.map(formElement => <Input touched = {formElement.config.touched} shouldValidate={formElement.config.validation} invalid={!formElement.config.valid} changed= {(event)=>this.inputChangedHandler(event,formElement.id)} key={formElement.id} elementtype={formElement.config.elementtype} elementConfig={formElement.config.elementConfig} value={formElement.config.value}/>)}
             
             <Button btnType="Success" clicked={this.OrderHandler}>ORDER</Button>
             </form>);
