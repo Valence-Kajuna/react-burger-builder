@@ -25,11 +25,11 @@ class BurgerBuilder extends Component{
         loading: false
     }
     componentDidMount() {
-        axios.get('https://react-burger-project-3ccd0-default-rtdb.firebaseio.com/ingredients.json')
-        .then(response => {
-            this.setState({ingredients: response.data})
-        }
-        );
+        // axios.get('https://react-burger-project-3ccd0-default-rtdb.firebaseio.com/ingredients.json')
+        // .then(response => {
+        //     this.setState({ingredients: response.data})
+        // }
+        // );
     }   
     
 
