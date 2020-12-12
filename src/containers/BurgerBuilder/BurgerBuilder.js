@@ -37,7 +37,7 @@ class BurgerBuilder extends Component{
         console.log("sum is "+sum);
 
 
-        this.setState({purchasable : sum>0});
+        return sum>0;
     }
 
     purchaseHandler = ()=>(
@@ -85,7 +85,7 @@ class BurgerBuilder extends Component{
             burger =(
                 <Aux>
                      <Burger ingredients={this.props.ings}/>
-                    <BuildControls purchasable={this.state.purchasable} price = {this.props.price} ingredientAdded = {this.props.onIngredientAdded} ingredientRemoved = {this.props.onIngredientRemoved} disabled={disabledInfo} ordered={this.purchaseHandler}/>
+                    <BuildControls purchasable={this.updatePurchaseState(this.props.ings)} price = {this.props.price} ingredientAdded = {this.props.onIngredientAdded} ingredientRemoved = {this.props.onIngredientRemoved} disabled={disabledInfo} ordered={this.purchaseHandler}/>
                 </Aux>
             ) 
 
