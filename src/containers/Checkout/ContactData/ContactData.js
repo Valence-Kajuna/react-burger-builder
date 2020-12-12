@@ -5,6 +5,7 @@ import axios from '../../../axios-orders';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import { withRouter } from 'react-router-dom';
 import Input from '../../../components/UI/Input/input';
+import { connect } from "react-redux";
 
 class ContactData extends Component{
     state ={
@@ -119,10 +120,10 @@ class ContactData extends Component{
            formData[elementIdentifier] = this.state.orderForm[elementIdentifier].value
        }
         const order ={
-            ingredients: this.props.ingredients,
+            ingredients: this.props.ings,
             price: this.props.price,
             orderData: formData
-        }
+        }  
         axios.post('/orders.json',order).then(response =>
             {this.setState({loading:false})
             this.props.history.push('/');
@@ -184,5 +185,11 @@ class ContactData extends Component{
             }
         }
         
+        const mapStateToProps = state =>{
+            return {
+                ings: state.ingredients,
+                price: state.totalPrice
+            }
+        }
         
-        export default withRouter(ContactData) ;
+        export default connect(mapStateToProps)( withRouter(ContactData)) ; 
